@@ -47,7 +47,7 @@ The JMdict file is not included in this repository due to its size. Download the
 Download the `jmdict-eng-*.json.zip` file, unzip it, and place the `.json` file in the project root.
 
 ```bash
-wget https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20250929122529/jmdict-eng-3.6.1+20250929122529.json.zip
+wget https://github.com/scriptin/jmdict-simplified/releases/download/3.6.2%2B20260316124936/jmdict-eng-3.6.2+20260316124936.json.zip
 unzip *.zip && rm *.zip
 ```
 

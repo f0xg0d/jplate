@@ -1,20 +1,4 @@
 #!/home/hiryuu/Documents/tools/jplate/venv/bin/python
-"""
-TO-DO
-- automatically download JMDict to project folder and unzip:
-    -> wget into project folder https://github.com/scriptin/jmdict-simplified/releases/download/3.6.1%2B20250929122529/jmdict-eng-3.6.1+20250929122529.json.zip
-    -> unzip *.zip && rm *.zip
-- jmdict update check launch
-- add option for expand
-- show ID and add id lookup
-- make settings/config file for api key and language settings -> download matching jmdict
-- result lenght limit (...)
-
-
--chmod +x /home/hiryuu/Documents/tools/jplate/jplate.py
-- sudo ln -s /home/hiryuu/Documents/tools/jplate/jplate.py /usr/local/bin/jplate
-"""
-
 import os
 import json
 import argparse
@@ -26,8 +10,7 @@ from wcwidth import wcswidth
 
 PATH = os.path.realpath(__file__)
 DIR = os.path.dirname(PATH)
-JMDICT = os.path.join(DIR, "jmdict-eng-3.6.1.json")
-ZIP = os.path.join(DIR, "jmdict-eng-3.6.1+20250929122529.json.zip")
+JMDICT = os.path.join(DIR, "jmdict-eng-3.6.2.json")
 API_KEY_FILE = os.path.join(DIR, ".api_key.txt")
 
 
@@ -112,9 +95,10 @@ def lookup_jmdict(query, search_english=False, expand=False):
                                 break
                         if gloss_text != "N/A":
                             break
-
+                    
+                    # skip entries with no valid gloss
                     if gloss_text == "N/A":
-                        continue  # skip entries with no valid gloss
+                        continue  
 
                     # Show all kana readings for English search
                     matching_kana = [k.get("text") for k in entry.get("kana", [])]
@@ -123,8 +107,6 @@ def lookup_jmdict(query, search_english=False, expand=False):
                         
                 # romaji lookup
                 else:
-                    #specific_gloss = None
-                    #wildcard_gloss = None
                     specific_glosses = []
                     wildcard_glosses = []
                     query_hira = jaconv.alphabet2kana(query)
@@ -176,10 +158,6 @@ def lookup_jmdict(query, search_english=False, expand=False):
         return pretty_results
     else:
         return None
-
-
-def setup(API_KEY, ZIP, JMDICT):
-    pass
 
 
 # ---------------------- MAIN ---------------------- #
